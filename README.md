@@ -29,7 +29,7 @@ If you feel like contributing to this project, but don't know a lot about progra
 * **[messages/points](https://github.com/mortie/LadBot/blob/master/messages/points)**:  
   Messages displayed when someone wants {nick}'s ladpoint count.
 
-* **[messages/unknownLad](https://github.com/mortie/LadBot/blob/master/messages/unknwownLad)**:  
+* **[messages/unknownLad](https://github.com/mortie/LadBot/blob/master/messages/unknownLad)**:  
   Messages displayed when someone tries to do somethnig with a lad which doesn't exist, or isn't registered.
 
 * **[messages/modifySelf](https://github.com/mortie/LadBot/blob/master/messages/modifySelf)**:  
