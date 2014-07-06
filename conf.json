@@ -1,7 +1,8 @@
 {
-	"server": "irc.esper.net",
-	"channel": "#squirrels",
-	"nick": "CarlBot",
+	"server": "irc.freenode.net",
+	"channel": "#channel",
+	"nick": "LadBot",
+
 	"usersFile": "users.json",
 	"messagesDir": "messages/"
 }
