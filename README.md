@@ -9,10 +9,14 @@ Ladpoints are intended to be given to people when they do something great. When 
 
 * **?ladpoints [user]**:  
   Display the ladpoints for a user.
-* **++ladpoitns [user]**:
+* **++ladpoitns [user]**:  
   Increment a user's ladpoint count.
-* **--ladpoints [user]**:
+* **--ladpoints [user]**:  
   Decrement a user's ladpoint count.
+* **ladpoints += [amount] [user]**:  
+  Increase [user]'s ladpoints by [amount].
+* **ladpointns -= [amount] [user]**:  
+  Decrease [user]'s ladpoints by [amount].
   
 Only users who are registered and identified with nickserv can have ladpoints.
 
@@ -34,6 +38,9 @@ If you feel like contributing to this project, but don't know a lot about progra
 
 * **[messages/modifySelf](https://github.com/mortie/LadBot/blob/master/messages/modifySelf)**:  
   Messages displayed when {nick} tries to modify their own ladpoint count.
+
+* **[messages/aboveAmountLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveAmountLimit):  
+  Messages displayed when {sender} tries to give or take too many ladpoints from {nick}.
 
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
  
