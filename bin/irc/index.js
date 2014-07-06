@@ -49,11 +49,7 @@ module.exports = function(conf, callback)
 		}
 	}.bind(this));
 
-	//"handle" errors
-	this.client.on("error", function(err)
-	{
-		console.log("Oh noes! It failed!\n", err);
-	});
+	this.client.on("error", function(){});
 }
 
 module.exports.prototype =

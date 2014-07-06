@@ -31,12 +31,12 @@ var irc = new Irc(conf, function(from, to, msg)
 
 		irc.lookup(nick, function(account)
 		{
-			ladCommands(command, nick, account);
+			ladCommands(command, nick, account, from);
 		});
 	}
 });
 
-function ladCommands(command, nick, account)
+function ladCommands(command, nick, account, sender)
 {
 	if (account)
 	{
@@ -50,20 +50,26 @@ function ladCommands(command, nick, account)
 			}));
 			break;
 		case "++":
-			++irc.users[account];
-			irc.say(randomMessage("goodLad",
+			if (nick !== sender)
 			{
-				"nick": nick
-			}));
-			irc.writeUsers();
+				++irc.users[account];
+				irc.say(randomMessage("goodLad",
+				{
+					"nick": nick
+				}));
+				irc.writeUsers();
+			}
 			break;
 		case "--":
-			--irc.users[account];
-			irc.say(randomMessage("badLad",
+			if (nick !== sender)
 			{
-				"nick": nick
-			}));
-			irc.writeUsers();
+				--irc.users[account];
+				irc.say(randomMessage("badLad",
+				{
+					"nick": nick
+				}));
+				irc.writeUsers();
+			}
 			break;
 		}
 	}
