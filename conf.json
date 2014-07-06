@@ -1,0 +1,7 @@
+{
+	"server": "irc.esper.net",
+	"channel": "#squirrels",
+	"nick": "CarlBot",
+	"usersFile": "users.json",
+	"messagesDir": "messages/"
+}
