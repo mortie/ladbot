@@ -39,7 +39,7 @@ If you feel like contributing to this project, but don't know a lot about progra
 * **[messages/modifySelf](https://github.com/mortie/LadBot/blob/master/messages/modifySelf)**:  
   Messages displayed when {nick} tries to modify their own ladpoint count.
 
-* **[messages/aboveAmountLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveAmountLimit):  
+* **[messages/aboveAmountLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveAmountLimit)**:  
   Messages displayed when {sender} tries to give or take too many ladpoints from {nick}.
 
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
