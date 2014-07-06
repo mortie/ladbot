@@ -1,6 +1,6 @@
 {
 	"server": "irc.freenode.net",
-	"channel": "#channel",
+	"channel": "#",
 	"nick": "LadBot",
 
 	"usersFile": "users.json",

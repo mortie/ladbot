@@ -31,42 +31,47 @@ var irc = new Irc(conf, function(from, to, msg)
 
 		irc.lookup(nick, function(account)
 		{
-			if (account)
-			{
-				switch (command)
-				{
-					case "?":
-						irc.say(randomMessage("points",
-						{
-							"nick": nick,
-							"points": irc.users[account]
-						}));
-						break;
-					case "++":
-						++irc.users[account];
-						irc.say(randomMessage("goodLad",
-						{
-							"nick": nick
-						}));
-						irc.writeUsers();
-						break;
-					case "--":
-						--irc.users[account];
-						irc.say(randomMessage("badLad",
-						{
-							"nick": nick
-						}));
-						irc.writeUsers();
-						break;
-				}
-			}
-			else
-			{
-				irc.say(randomMessage("unknownLad",
-				{
-					"nick": nick
-				}));
-			}
+			ladCommands(command, nick, account);
 		});
 	}
 });
+
+function ladCommands(command, nick, account)
+{
+	if (account)
+	{
+		switch (command)
+		{
+		case "?":
+			irc.say(randomMessage("points",
+			{
+				"nick": nick,
+				"points": irc.users[account]
+			}));
+			break;
+		case "++":
+			++irc.users[account];
+			irc.say(randomMessage("goodLad",
+			{
+				"nick": nick
+			}));
+			irc.writeUsers();
+			break;
+		case "--":
+			--irc.users[account];
+			irc.say(randomMessage("badLad",
+			{
+				"nick": nick
+			}));
+			irc.writeUsers();
+			break;
+		}
+	}
+	else
+	{
+		irc.say(randomMessage("unknownLad",
+		{
+			"nick": nick
+		}));
+	}
+}
