@@ -71,5 +71,10 @@ module.exports.prototype =
 		{
 			callback(info.account);
 		});
+	},
+
+	"getNames": function()
+	{
+		return this.client.chans[this.conf.channel].users;
 	}
 }

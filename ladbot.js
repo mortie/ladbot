@@ -34,6 +34,20 @@ var irc = new Irc(conf, function(from, to, msg)
 			ladCommands(command, nick, account, from);
 		});
 	}
+	else if (msg == "lads")
+	{
+		var names = irc.getNames();
+		var str = "";
+
+		var i;
+		for (i in names)
+		{
+			if (i !== conf.nick)
+				str += i+" ";
+		}
+
+		irc.say(str);
+	}
 });
 
 function modifyPointCount(operation, nick, account, sender)
