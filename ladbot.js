@@ -36,7 +36,11 @@ var irc = new Irc(conf, function(from, to, msg)
 				switch (command)
 				{
 					case "?":
-						irc.say(nick+": "+irc.users[account]);
+						irc.say(randomMessage("points",
+						{
+							"nick": nick,
+							"points": irc.users[account]
+						}));
 						break;
 					case "++":
 						++irc.users[account];
