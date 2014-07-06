@@ -34,6 +34,23 @@ var irc = new Irc(conf, function(from, to, msg)
 			ladCommands(command, nick, account, from);
 		});
 	}
+	else if (msg.match(/ladpoints\s+[\+\-]\=\s+\d+\s+[^\s]+/))
+	{
+		//ladpoints {command} {amount} {nick}
+		var command = msg.replace(/ladpoints\s+/, "")
+		                 .replace(/\s+\d+\s+[^\s]+/, "")
+		                 .trim();
+		var amount = +msg.replace(/ladpoints\s+[\+\-]\=\s+/, "")
+		                .replace(/\s+[^\s]+/, "")
+		                .trim();
+		var nick = msg.replace(/ladpoints\s+[\+\-]\=\s+\d+\s+/, "")
+		              .trim();
+
+		irc.lookup(nick, function(account)
+		{
+			ladCommands(command, nick, account, from, amount);
+		});
+	}
 	else if (msg == "lads")
 	{
 		var names = irc.getNames();
@@ -50,31 +67,7 @@ var irc = new Irc(conf, function(from, to, msg)
 	}
 });
 
-function modifyPointCount(operation, nick, account, sender)
-{
-	if (nick !== sender)
-	{
-		if (operation == "badLad")
-			--irc.users[account];
-		else if (operation == "goodLad")
-			++irc.users[account];
-
-		irc.say(randomMessage(operation,
-		{
-			"nick": nick
-		}));
-		irc.writeUsers();
-	}
-	else
-	{
-		irc.say(randomMessage("modifySelf",
-		{
-			"nick": nick
-		}));
-	}
-}
-
-function ladCommands(command, nick, account, sender)
+function ladCommands(command, nick, account, sender, amount)
 {
 	if (account)
 	{
@@ -88,10 +81,16 @@ function ladCommands(command, nick, account, sender)
 			}));
 			break;
 		case "++":
-			modifyPointCount("badLad", nick, account, sender);
+			modifyPointCount("badLad", nick, account, sender, 1);
 			break;
 		case "--":
-			modifyPointCount("badLad", nick, account, sender);
+			modifyPointCount("badLad", nick, account, sender, -1);
+			break;
+		case "+=":
+			modifyPointCount("goodLad", nick, account, sender, amount);
+			break;
+		case "-=":
+			modifyPointCount("badLad", nick, account, sender, -amount);
 			break;
 		}
 	}
@@ -103,3 +102,38 @@ function ladCommands(command, nick, account, sender)
 		}));
 	}
 }
+
+function modifyPointCount(operation, nick, account, sender, amount)
+{
+	if (nick !== sender)
+	{
+		if (Math.abs(amount) > conf.amountLimit)
+		{
+			irc.say(randomMessage("aboveAmountLimit",
+			{
+				"nick": nick,
+				"sender": sender,
+				"amount": amount
+			}));
+		}
+		else
+		{
+			irc.users[account] += amount;
+
+			irc.say(randomMessage(operation,
+			{
+				"nick": nick,
+				"sender": sender
+			}));
+			irc.writeUsers();
+		}
+	}
+	else
+	{
+		irc.say(randomMessage("modifySelf",
+		{
+			"nick": nick
+		}));
+	}
+}
+
