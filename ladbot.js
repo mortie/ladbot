@@ -36,6 +36,30 @@ var irc = new Irc(conf, function(from, to, msg)
 	}
 });
 
+function modifyPointCount(operation, nick, account, sender)
+{
+	if (nick !== sender)
+	{
+		if (operation == "badLad")
+			--irc.users[account];
+		else if (operation == "goodLad")
+			++irc.users[account];
+
+		irc.say(randomMessage(operation,
+		{
+			"nick": nick
+		}));
+		irc.writeUsers();
+	}
+	else
+	{
+		irc.say(randomMessage("modifySelf",
+		{
+			"nick": nick
+		}));
+	}
+}
+
 function ladCommands(command, nick, account, sender)
 {
 	if (account)
@@ -50,26 +74,10 @@ function ladCommands(command, nick, account, sender)
 			}));
 			break;
 		case "++":
-			if (nick !== sender)
-			{
-				++irc.users[account];
-				irc.say(randomMessage("goodLad",
-				{
-					"nick": nick
-				}));
-				irc.writeUsers();
-			}
+			modifyPointCount("badLad", nick, account, sender);
 			break;
 		case "--":
-			if (nick !== sender)
-			{
-				--irc.users[account];
-				irc.say(randomMessage("badLad",
-				{
-					"nick": nick
-				}));
-				irc.writeUsers();
-			}
+			modifyPointCount("badLad", nick, account, sender);
 			break;
 		}
 	}
