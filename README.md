@@ -32,6 +32,9 @@ If you feel like contributing to this project, but don't know a lot about progra
 * **[messages/unknownLad](https://github.com/mortie/LadBot/blob/master/messages/unknwownLad)**:  
   Messages displayed when someone tries to do somethnig with a lad which doesn't exist, or isn't registered.
 
+* **[messages/modifySelf](https://github.com/mortie/LadBot/blob/master/messages/unknwownLad)**:
+  Messages displayed when {nick} tries to modify their own ladpoint count.
+
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
  
  If you know programming on the other hand, it's basically the same as with any other open source project: add features, clean up code, optimise, etc.
