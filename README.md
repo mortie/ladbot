@@ -17,6 +17,11 @@ Ladpoints are intended to be given to people when they do something great. When 
   Increase [user]'s ladpoints by [amount].
 * **ladpointns -= [amount] [user]**:  
   Decrease [user]'s ladpoints by [amount].
+
+In addittion to ladpoints, it has some useful utilities:
+
+* **calc [math expression]**:  
+  Calculate a math expression. Uses [mathjs](http://mathjs.org).
   
 Only users who are registered and identified with nickserv can have ladpoints.
 
@@ -41,6 +46,9 @@ If you feel like contributing to this project, but don't know a lot about progra
 
 * **[messages/aboveAmountLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveAmountLimit)**:  
   Messages displayed when {sender} tries to give or take too many ladpoints from {nick}.
+
+* **[messages/badMath](https://github.com/mortie/LadBot/blob/master/messages/badMath)**:  
+  Messages displayed when given a bad {math} string for calc.
 
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
  

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 var fs = require("fs");
+var math = require("mathjs");
 var Irc = require("./bin/irc");
 
 var conf = JSON.parse(fs.readFileSync("conf.json"));
@@ -50,6 +51,21 @@ var irc = new Irc(conf, function(from, to, msg)
 		{
 			ladCommands(command, nick, account, from, amount);
 		});
+	}
+	else if (msg.match(/calc.+/))
+	{
+		var mathString = msg.replace(/calc\s+/, "");
+		try
+		{
+			irc.say(math.eval(mathString));
+		}
+		catch (e)
+		{
+			irc.say(randomMessage("badCalc",
+			{
+				"math": mathString
+			}));
+		}
 	}
 	else if (msg == "lads")
 	{
