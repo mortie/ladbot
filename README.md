@@ -47,7 +47,7 @@ If you want to contribute to this project, but don't know a lot about programmin
 * **[messages/aboveAmountLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveAmountLimit)**:  
   Messages displayed when {sender} tries to give or take too many ladpoints from {nick}.
 
-* **[messages/badMath](https://github.com/mortie/LadBot/blob/master/messages/badMath)**:  
+* **[messages/badMath](https://github.com/mortie/LadBot/blob/master/messages/badCalc)**:  
   Messages displayed when given a bad {math} string for calc.
 
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
