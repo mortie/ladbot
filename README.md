@@ -27,7 +27,7 @@ Only users who are registered and identified with nickserv can have ladpoints.
 
 ## Contribute:
 
-If you feel like contributing to this project, but don't know a lot about programming, you can add random messages.
+If you want to contribute to this project, but don't know a lot about programming, or don't feel like programming, you can add random messages.
 
 * **[messages/goodLad](https://github.com/mortie/LadBot/blob/master/messages/goodLad)**:  
   Messages displayed when someone increments {nick}'s ladpoint count.
