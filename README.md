@@ -24,7 +24,12 @@ In addittion to ladpoints, it has some useful utilities:
   Calculate a math expression. Uses [mathjs](http://mathjs.org).
 * **afk**:  
   Flags you as afk. If someone mentions your name while you're gone, the bot will notify them that you're away. Once you say something, you'll no longer be flagged as afk.
-  
+* **timer**:
+  Notify you after a set time. You can specify the time in a pretty natural way, for example:
+	* Set a timer for 1 day and 3 hours
+	* Timer 10 seconds
+	* Set timer for 0.5 days, 4 minutes and 55 seconds
+
 Only users who are registered and identified with nickserv can have ladpoints.
 
 ## Contribute:
@@ -63,6 +68,12 @@ If you want to contribute to this project, but don't know a lot about programmin
 
 * **[messages/isAfk](https://github.com/mortie/LadBot/blob/master/messages/isAfk)**:  
   Messages displayed when {sender} mentions {nick} while {nick} is afk.
+
+* **[messages/timerStart](https://github.com/mortie/LadBot/blob/master/messages/timerStart)**:  
+  Messages displayed when {nick} starts a timer.
+
+* **[messages/timerEnd](https://github.com/mortie/LadBot/blob/master/messages/timerEnd)**:  
+  Messages displayed when {nick}'s timer ends.
 
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
  

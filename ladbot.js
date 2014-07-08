@@ -2,6 +2,7 @@
 var fs = require("fs");
 var math = require("mathjs");
 var Irc = require("./bin/irc");
+var timer = require("./bin/timer");
 
 var conf = JSON.parse(fs.readFileSync("conf.json"));
 
@@ -23,11 +24,11 @@ function randomMessage(messageFile, args)
 
 var irc = new Irc(conf, function(sender, to, msg)
 {
-	if (msg.match(/^[^\s]+ladpoints/))
+	if (msg.match(/^[^\s]+ladpoints/i))
 	{
-		var command = msg.replace(/ladpoints(.+)?/, "");
-		var rest = msg.replace(/.+ladpoints\s+/, "");
-		var tokens = rest.split(/\s/);
+		var command = msg.replace(/ladpoints(.+)?/i, "");
+		var rest = msg.replace(/.+ladpoints\s+/i, "");
+		var tokens = rest.split(/\s/i);
 		var nick = tokens[0];
 
 		irc.lookup(nick, function(account)
@@ -35,16 +36,16 @@ var irc = new Irc(conf, function(sender, to, msg)
 			ladCommands(command, nick, account, sender);
 		});
 	}
-	else if (msg.match(/^ladpoints\s+[\+\-]\=\s+\d+\s+[^\s]+/))
+	else if (msg.match(/^ladpoints\s+[\+\-]\=\s+\d+\s+[^\s]+/i))
 	{
 		//ladpoints {command} {amount} {nick}
-		var command = msg.replace(/ladpoints\s+/, "")
-		                 .replace(/\s+\d+\s+[^\s]+/, "")
+		var command = msg.replace(/ladpoints\s+/i, "")
+		                 .replace(/\s+\d+\s+[^\s]+/i, "")
 		                 .trim();
-		var amount = +msg.replace(/ladpoints\s+[\+\-]\=\s+/, "")
-		                .replace(/\s+[^\s]+/, "")
+		var amount = +msg.replace(/ladpoints\s+[\+\-]\=\s+/i, "")
+		                .replace(/\s+[^\s]+/i, "")
 		                .trim();
-		var nick = msg.replace(/ladpoints\s+[\+\-]\=\s+\d+\s+/, "")
+		var nick = msg.replace(/ladpoints\s+[\+\-]\=\s+\d+\s+/i, "")
 		              .trim();
 
 		irc.lookup(nick, function(account)
@@ -52,9 +53,9 @@ var irc = new Irc(conf, function(sender, to, msg)
 			ladCommands(command, nick, account, sender, amount);
 		});
 	}
-	else if (msg.match(/^calc.+/))
+	else if (msg.match(/^calc.+/i))
 	{
-		var mathString = msg.replace(/calc\s+/, "");
+		var mathString = msg.replace(/calc\s+/i, "");
 		try
 		{
 			irc.say(math.eval(mathString));
@@ -67,7 +68,7 @@ var irc = new Irc(conf, function(sender, to, msg)
 			}));
 		}
 	}
-	else if (msg.match(/^afk/))
+	else if (msg.match(/^afk/i))
 	{
 		irc.say(randomMessage("afk",
 		{
@@ -99,7 +100,22 @@ var irc = new Irc(conf, function(sender, to, msg)
 			}));
 		}
 	}
-	else if (msg == "lads")
+	else if (msg.match(/^(timer|set.+timer).+(second|minute|hour|day)/i))
+	{
+		irc.say(randomMessage("timerStart",
+		{
+			"nick": sender
+		}));
+
+		timer.setTimer(msg, function()
+		{
+			irc.say(randomMessage("timerEnd",
+			{
+				"nick": sender
+			}));
+		}.bind(sender));
+	}
+	else if (msg.match(/^lads$/i))
 	{
 		var names = irc.getNames();
 		var str = "";
