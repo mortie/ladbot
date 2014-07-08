@@ -32,7 +32,7 @@ var irc = new Irc(conf, function(sender, to, msg)
 
 		irc.lookup(nick, function(account)
 		{
-			ladCommands(command, nick, account, from);
+			ladCommands(command, nick, account, sender);
 		});
 	}
 	else if (msg.match(/^ladpoints\s+[\+\-]\=\s+\d+\s+[^\s]+/))
@@ -49,7 +49,7 @@ var irc = new Irc(conf, function(sender, to, msg)
 
 		irc.lookup(nick, function(account)
 		{
-			ladCommands(command, nick, account, from, amount);
+			ladCommands(command, nick, account, sender, amount);
 		});
 	}
 	else if (msg.match(/^calc.+/))
@@ -157,11 +157,16 @@ function modifyPointCount(operation, nick, account, sender, amount)
 	{
 		if (Math.abs(amount) > conf.amountLimit)
 		{
-			irc.say(randomMessage("aboveAmountLimit",
+			if (amount < 0)
+				var message = "aboveTakeLimit";
+			else
+				var message = "aboveGiveLimit";
+
+			irc.say(randomMessage(message,
 			{
 				"nick": nick,
 				"sender": sender,
-				"amount": amount
+				"amount": Math.abs(amount)
 			}));
 		}
 		else

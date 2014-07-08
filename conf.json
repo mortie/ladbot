@@ -3,6 +3,8 @@
 	"channel": "#",
 	"nick": "LadBot",
 
+	"amountLimit": 10,
+
 	"usersFile": "users.json",
 	"messagesDir": "messages/"
 }

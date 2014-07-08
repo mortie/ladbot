@@ -46,8 +46,11 @@ If you want to contribute to this project, but don't know a lot about programmin
 * **[messages/modifySelf](https://github.com/mortie/LadBot/blob/master/messages/modifySelf)**:  
   Messages displayed when {nick} tries to modify their own ladpoint count.
 
-* **[messages/aboveAmountLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveAmountLimit)**:  
-  Messages displayed when {sender} tries to give or take too many ladpoints from {nick}.
+* **[messages/aboveGiveLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveGiveLimit)**:  
+  Messages displayed when {sender} tries to give too many ladpoints to {nick}.
+
+* **[messages/aboveTakeLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveTakeLimit)**:
+  Messages displayed when {sender} tries to take too many ladpoints from {nick}.
 
 * **[messages/badMath](https://github.com/mortie/LadBot/blob/master/messages/badCalc)**:  
   Messages displayed when given a bad {math} string for calc.

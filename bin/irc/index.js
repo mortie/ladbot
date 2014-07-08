@@ -50,6 +50,14 @@ module.exports = function(conf, callback)
 		}
 	}.bind(this));
 
+	this.client.on("quit", function(nick)
+	{
+		var i = this.afkUsers.indexOf(nick);
+
+		if (i !== -1)
+			this.afkUsers.splice(i, 1);
+	}.bind(this));
+
 	this.client.on("error", function(){});
 }
 
