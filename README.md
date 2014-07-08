@@ -22,6 +22,8 @@ In addittion to ladpoints, it has some useful utilities:
 
 * **calc [math expression]**:  
   Calculate a math expression. Uses [mathjs](http://mathjs.org).
+* **afk**:  
+  Flags you as afk. If someone mentions your name while you're gone, the bot will notify them that you're away. Once you say something, you'll no longer be flagged as afk.
   
 Only users who are registered and identified with nickserv can have ladpoints.
 
@@ -49,6 +51,15 @@ If you feel like contributing to this project, but don't know a lot about progra
 
 * **[messages/badMath](https://github.com/mortie/LadBot/blob/master/messages/badMath)**:  
   Messages displayed when given a bad {math} string for calc.
+
+* **[messages/afk](https://github.com/mortie/LadBot/blob/master/messages/afk)**:  
+  Messages displayed when {nick} goes afk.
+
+* **[messages/back](https://github.com/mortie/LadBot/blob/master/messages/back)**:  
+  Messages displayed when {nick} comes back from being afk.
+
+* **[messages/isAfk](https://github.com/mortie/LadBot/blob/master/messages/isAfk)**:  
+  Messages displayed when {sender} mentions {nick} while {nick} is afk.
 
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
  

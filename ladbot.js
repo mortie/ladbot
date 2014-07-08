@@ -21,9 +21,9 @@ function randomMessage(messageFile, args)
 	return message;
 }
 
-var irc = new Irc(conf, function(from, to, msg)
+var irc = new Irc(conf, function(sender, to, msg)
 {
-	if (msg.match(/[^\s]+ladpoints/))
+	if (msg.match(/^[^\s]+ladpoints/))
 	{
 		var command = msg.replace(/ladpoints(.+)?/, "");
 		var rest = msg.replace(/.+ladpoints\s+/, "");
@@ -35,7 +35,7 @@ var irc = new Irc(conf, function(from, to, msg)
 			ladCommands(command, nick, account, from);
 		});
 	}
-	else if (msg.match(/ladpoints\s+[\+\-]\=\s+\d+\s+[^\s]+/))
+	else if (msg.match(/^ladpoints\s+[\+\-]\=\s+\d+\s+[^\s]+/))
 	{
 		//ladpoints {command} {amount} {nick}
 		var command = msg.replace(/ladpoints\s+/, "")
@@ -52,7 +52,7 @@ var irc = new Irc(conf, function(from, to, msg)
 			ladCommands(command, nick, account, from, amount);
 		});
 	}
-	else if (msg.match(/calc.+/))
+	else if (msg.match(/^calc.+/))
 	{
 		var mathString = msg.replace(/calc\s+/, "");
 		try
@@ -64,6 +64,38 @@ var irc = new Irc(conf, function(from, to, msg)
 			irc.say(randomMessage("badCalc",
 			{
 				"math": mathString
+			}));
+		}
+	}
+	else if (msg.match(/^afk/))
+	{
+		irc.say(randomMessage("afk",
+		{
+			"nick": sender 
+		}));
+
+		irc.addAfk(sender);
+	}
+	else if (irc.isAfk(sender))
+	{
+		irc.say(randomMessage("back",
+		{
+			"nick": sender
+		}));
+
+		irc.removeAfk(sender);
+	}
+	else if (irc.containsAfkUser(msg))
+	{
+		var u = irc.getAfkUsers(msg);
+
+		var i;
+		for (i in u)
+		{
+			irc.say(randomMessage("isAfk",
+			{
+				"nick": u[i],
+				"sender": sender
 			}));
 		}
 	}

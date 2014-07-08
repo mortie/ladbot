@@ -4,6 +4,7 @@ var fs = require("fs");
 module.exports = function(conf, callback)
 {
 	this.conf = conf;
+	this.afkUsers = [];
 
 	try {
 		this.users = JSON.parse(fs.readFileSync(this.conf.usersFile));
@@ -76,5 +77,51 @@ module.exports.prototype =
 	"getNames": function()
 	{
 		return this.client.chans[this.conf.channel].users;
+	},
+
+	"addAfk": function(nick)
+	{
+		if (this.afkUsers.indexOf(nick) === -1)
+			this.afkUsers.push(nick);
+	},
+
+	"removeAfk": function(nick)
+	{
+		var i = this.afkUsers.indexOf(nick);
+		if (i !== -1)
+			this.afkUsers.splice(i, 1);
+	},
+
+	"isAfk": function(nick)
+	{
+		if (this.afkUsers.indexOf(nick) === -1)
+			return false;
+		else
+			return true;
+	},
+
+	"containsAfkUser": function(str)
+	{
+		var i;
+		for (i in this.afkUsers)
+		{
+			if (str.match(this.afkUsers[i]))
+				return true;
+		}
+		return false;
+	},
+
+	"getAfkUsers": function(str)
+	{
+		var u = [];
+
+		var i;
+		for (i in this.afkUsers)
+		{
+			if (str.match(this.afkUsers[i]))
+				u.push(this.afkUsers[i]);
+		}
+
+		return u;
 	}
 }
