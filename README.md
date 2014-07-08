@@ -18,6 +18,8 @@ Ladpoints are intended to be given to people when they do something great. When 
 * **ladpointns -= [amount] [user]**:  
   Decrease [user]'s ladpoints by [amount].
 
+Only users who are registered and identified with nickserv can have ladpoints.
+
 In addittion to ladpoints, it has some useful utilities:
 
 * **calc [math expression]**:  
@@ -26,11 +28,9 @@ In addittion to ladpoints, it has some useful utilities:
   Flags you as afk. If someone mentions your name while you're gone, the bot will notify them that you're away. Once you say something, you'll no longer be flagged as afk.
 * **timer**:
   Notify you after a set time. You can specify the time in a pretty natural way, for example:
-	* Set a timer for 1 day and 3 hours
-	* Timer 10 seconds
-	* Set timer for 0.5 days, 4 minutes and 55 seconds
-
-Only users who are registered and identified with nickserv can have ladpoints.
+	* `Set a timer for 1 day and 3 hours`
+	* `Timer 10 seconds`
+	* `Set timer for 0.5 days, 4 minutes and 55 seconds`
 
 ## Contribute:
 
