@@ -29,7 +29,7 @@ Only users who are registered and identified with nickserv can have ladpoints.
 
 ## Contribute:
 
-If you feel like contributing to this project, but don't know a lot about programming, you can add random messages.
+If you want to contribute to this project, but don't know a lot about programming, or don't feel like programming, you can add random messages.
 
 * **[messages/goodLad](https://github.com/mortie/LadBot/blob/master/messages/goodLad)**:  
   Messages displayed when someone increments {nick}'s ladpoint count.
@@ -49,7 +49,7 @@ If you feel like contributing to this project, but don't know a lot about progra
 * **[messages/aboveAmountLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveAmountLimit)**:  
   Messages displayed when {sender} tries to give or take too many ladpoints from {nick}.
 
-* **[messages/badMath](https://github.com/mortie/LadBot/blob/master/messages/badMath)**:  
+* **[messages/badMath](https://github.com/mortie/LadBot/blob/master/messages/badCalc)**:  
   Messages displayed when given a bad {math} string for calc.
 
 * **[messages/afk](https://github.com/mortie/LadBot/blob/master/messages/afk)**:  
