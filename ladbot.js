@@ -24,6 +24,10 @@ function randomMessage(messageFile, args)
 
 var irc = new Irc(conf, function(sender, to, msg)
 {
+
+	//?ladpoints
+	//++ladpoints
+	//--ladpoints
 	if (msg.match(/^[^\s]+ladpoints/i))
 	{
 		var command = msg.replace(/ladpoints(.+)?/i, "");
@@ -36,9 +40,11 @@ var irc = new Irc(conf, function(sender, to, msg)
 			ladCommands(command, nick, account, sender);
 		});
 	}
+
+	//ladpoints += [amount] [nick]
+	//ladpoints -= [amount] [nick]
 	else if (msg.match(/^ladpoints\s+[\+\-]\=\s+\d+\s+[^\s]+/i))
 	{
-		//ladpoints {command} {amount} {nick}
 		var command = msg.replace(/ladpoints\s+/i, "")
 		                 .replace(/\s+\d+\s+[^\s]+/i, "")
 		                 .trim();
@@ -53,6 +59,8 @@ var irc = new Irc(conf, function(sender, to, msg)
 			ladCommands(command, nick, account, sender, amount);
 		});
 	}
+
+	//calc [expresion]
 	else if (msg.match(/^calc.+/i))
 	{
 		var mathString = msg.replace(/calc\s+/i, "");
@@ -68,6 +76,8 @@ var irc = new Irc(conf, function(sender, to, msg)
 			}));
 		}
 	}
+
+	//afk
 	else if (msg.match(/^afk/i))
 	{
 		irc.say(randomMessage("afk",
@@ -77,6 +87,8 @@ var irc = new Irc(conf, function(sender, to, msg)
 
 		irc.addAfk(sender);
 	}
+
+	//back from afk
 	else if (irc.isAfk(sender))
 	{
 		irc.say(randomMessage("back",
@@ -86,6 +98,8 @@ var irc = new Irc(conf, function(sender, to, msg)
 
 		irc.removeAfk(sender);
 	}
+
+	//message contains afk user
 	else if (irc.containsAfkUser(msg))
 	{
 		var u = irc.getAfkUsers(msg);
@@ -100,6 +114,8 @@ var irc = new Irc(conf, function(sender, to, msg)
 			}));
 		}
 	}
+
+	//set timer [time]
 	else if (msg.match(/^(timer|set.+timer).+(second|minute|hour|day)/i))
 	{
 		irc.say(randomMessage("timerStart",
@@ -115,6 +131,8 @@ var irc = new Irc(conf, function(sender, to, msg)
 			}));
 		}.bind(sender));
 	}
+
+	//lads
 	else if (msg.match(/^lads$/i))
 	{
 		var names = irc.getNames();
