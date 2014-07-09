@@ -24,7 +24,7 @@ In addittion to ladpoints, it has some useful utilities:
 
 * **calc [math expression]**:  
   Calculate a math expression. Uses [mathjs](http://mathjs.org).
-* **convert [number] to base [base]**:
+* **[number] to base [base]**:
   Convert a number to another base. It supports all bases between 2 and 36.
 * **afk**:  
   Flags you as afk. If someone mentions your name while you're gone, the bot will notify them that you're away. Once you say something, you'll no longer be flagged as afk.

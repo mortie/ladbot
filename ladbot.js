@@ -63,7 +63,7 @@ var irc = new Irc(conf, function(sender, to, msg)
 	}
 
 	//convert [num] to base [base]
-	else if (msg.match(/^convert[^\d]+\d+.+base.+\d+/i))
+	else if (msg.match(/[^\d]+to\s+base[^\d]+\d+/i))
 	{
 		var parsed = conversion.base.parse(msg);
 
