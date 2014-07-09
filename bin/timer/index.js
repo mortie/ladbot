@@ -48,11 +48,19 @@ module.exports =
 		var days = Math.floor(x);
 
 		var str = "";
-		if (days > 0)    str += days+" days ";
-		if (hours > 0)   str += hours+" hours ";
-		if (minutes > 0) str += minutes+" minutes ";
-		if (seconds > 0) str += seconds+" seconds ";
+		if (days > 0)    str += timeStringPart(days, "day");
+		if (hours > 0)   str += timeStringPart(hours, "hour");
+		if (minutes > 0) str += timeStringPart(minutes, "minute");
+		if (seconds > 0) str += timeStringPart(seconds, "second");
 
 		return str.substring(0, str.length-1);
 	}
+}
+
+function timeStringPart(time, unit)
+{
+	if (time === 1)
+		return time+" "+unit+" ";
+	else
+		return time+" "+unit+"s ";
 }

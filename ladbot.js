@@ -6,22 +6,6 @@ var timer = require("./bin/timer");
 
 var conf = JSON.parse(fs.readFileSync("conf.json"));
 
-function randomMessage(messageFile, args)
-{
-	var messages = fs.readFileSync(conf.messagesDir+messageFile, "utf8")
-	                 .split("\n")
-	                 .filter(function(n) { return n != "" } );
-	var message = messages[Math.floor(Math.random()*messages.length)];
-
-	var i;
-	for (i in args)
-	{
-		message = message.split("{"+i+"}").join(args[i]);
-	}
-
-	return message;
-}
-
 var irc = new Irc(conf, function(sender, to, msg)
 {
 
@@ -146,7 +130,7 @@ var irc = new Irc(conf, function(sender, to, msg)
 		var i;
 		for (i in names)
 		{
-			if (i !== conf.nick)
+			if (i !== conf.nick && i !== sender)
 				str += i+" ";
 		}
 
@@ -229,3 +213,18 @@ function modifyPointCount(operation, nick, account, sender, amount)
 	}
 }
 
+function randomMessage(messageFile, args)
+{
+	var messages = fs.readFileSync(conf.messagesDir+messageFile, "utf8")
+	                 .split("\n")
+	                 .filter(function(n) { return n != "" } );
+	var message = messages[Math.floor(Math.random()*messages.length)];
+
+	var i;
+	for (i in args)
+	{
+		message = message.split("{"+i+"}").join(args[i]);
+	}
+
+	return message;
+}
