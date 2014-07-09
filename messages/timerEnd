@@ -1,1 +1,2 @@
-{nick}, your timer is up!
+{nick}, your timer for {duration} is up!
+{nick}, {duration} has passed!

@@ -1,2 +1,2 @@
-Alright {nick}, I'll notify you.
-Timer set for {nick}.
+Alright {nick}, I'll notify you in {duration}.
+Timer set for {nick} for {duration}.

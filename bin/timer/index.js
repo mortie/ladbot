@@ -1,11 +1,11 @@
 module.exports =
 {
-	"setTimer": function(string, callback)
+	"setTimer": function(msec, callback)
 	{
-		setTimeout(callback, this.stringToMilliseconds(string));
+		setTimeout(callback, msec);
 	},
 
-	"stringToMilliseconds": function(str)
+	"parseString": function(str)
 	{
 		var tokens = str.split(/\s+/);
 		var currentNumber = 0;
@@ -29,5 +29,30 @@ module.exports =
 		}
 
 		return total;
+	},
+
+	"prettyDuration": function(msec)
+	{
+		var x;
+
+		x = msec / 1000
+		var seconds = Math.floor(x % 60);
+
+		x /= 60
+		var minutes = Math.floor(x % 60);
+
+		x /= 60
+		var hours = Math.floor(x % 24);
+
+		x /= 24
+		var days = Math.floor(x);
+
+		var str = "";
+		if (days > 0)    str += days+" days ";
+		if (hours > 0)   str += hours+" hours ";
+		if (minutes > 0) str += minutes+" minutes ";
+		if (seconds > 0) str += seconds+" seconds ";
+
+		return str.substring(0, str.length-1);
 	}
 }

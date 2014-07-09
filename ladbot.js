@@ -118,18 +118,23 @@ var irc = new Irc(conf, function(sender, to, msg)
 	//set timer [time]
 	else if (msg.match(/^(timer|set.+timer).+(second|minute|hour|day)/i))
 	{
+		var duration = timer.parseString(msg);
+		var prettyDuration = timer.prettyDuration(duration);
+
 		irc.say(randomMessage("timerStart",
 		{
-			"nick": sender
+			"nick": sender,
+			"duration": prettyDuration
 		}));
 
-		timer.setTimer(msg, function()
+		timer.setTimer(duration, function()
 		{
 			irc.say(randomMessage("timerEnd",
 			{
-				"nick": sender
+				"nick": sender,
+				"duration": prettyDuration
 			}));
-		}.bind(sender));
+		}.bind(sender, prettyDuration));
 	}
 
 	//lads
