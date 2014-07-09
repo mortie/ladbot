@@ -76,6 +76,8 @@ If you want to contribute to this project, but don't know a lot about programmin
 
 * **[messages/timerEnd](https://github.com/mortie/LadBot/blob/master/messages/timerEnd)**:  
   Messages displayed when {nick}'s timer ends.
+* **[messages/badBaseConvert](https://github.com/mortie/blob/master/messages/badBaseConvert**:
+  Messages displayed when {nick} tries to convert errorously from {number} to {base}.
 
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
  

@@ -73,8 +73,9 @@ var irc = new Irc(conf, function(sender, to, msg)
 		}
 		catch (e)
 		{
-			irc.say(randomMessage("badConvert",
+			irc.say(randomMessage("badBaseConvert",
 			{
+				"nick": sender,
 				"number": parsed.number,
 				"base": parsed.base
 			}));

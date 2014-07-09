@@ -46,11 +46,12 @@ module.exports =
 			var i;
 			var reverseCharCodes = [];
 
-			while (num > 0)
+			do
 			{
 				reverseCharCodes.push(num % base);
 				num = Math.floor(num/base);
 			}
+			while (num > 0);
 
 			var digitString = "";
 			for (i in reverseCharCodes)
