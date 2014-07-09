@@ -3,6 +3,7 @@ var fs = require("fs");
 var math = require("mathjs");
 var Irc = require("./bin/irc");
 var timer = require("./bin/timer");
+var conversion = require("./bin/conversion");
 
 var conf = JSON.parse(fs.readFileSync("conf.json"));
 
@@ -27,15 +28,15 @@ var irc = new Irc(conf, function(sender, to, msg)
 
 	//ladpoints += [amount] [nick]
 	//ladpoints -= [amount] [nick]
-	else if (msg.match(/^ladpoints\s+[\+\-]\=\s+\d+\s+[^\s]+/i))
+	else if (msg.match(/^ladpoints\s+(\-|\+)\=\s+\d+\s+[^\s]+/i))
 	{
 		var command = msg.replace(/ladpoints\s+/i, "")
 		                 .replace(/\s+\d+\s+[^\s]+/i, "")
 		                 .trim();
-		var amount = +msg.replace(/ladpoints\s+[\+\-]\=\s+/i, "")
+		var amount = +msg.replace(/ladpoints\s+(\-|\+)\=\s+/i, "")
 		                .replace(/\s+[^\s]+/i, "")
 		                .trim();
-		var nick = msg.replace(/ladpoints\s+[\+\-]\=\s+\d+\s+/i, "")
+		var nick = msg.replace(/ladpoints\s+(\+|\-)\=\s+\d+\s+/i, "")
 		              .trim();
 
 		irc.lookup(nick, function(account)
@@ -59,6 +60,27 @@ var irc = new Irc(conf, function(sender, to, msg)
 				"math": mathString
 			}));
 		}
+	}
+
+	//convert [num] to base [base]
+	else if (msg.match(/^convert[^\d]+\d+.+base.+\d+/i))
+	{
+		var parsed = conversion.base.parse(msg);
+
+		try
+		{
+			var result = conversion.base.toBase(parsed.base, parsed.number);
+		}
+		catch (e)
+		{
+			irc.say(randomMessage("badConvert",
+			{
+				"number": parsed.number,
+				"base": parsed.base
+			}));
+		}
+
+		irc.say(result);
 	}
 
 	//afk
