@@ -26,38 +26,6 @@ module.exports = function(conf, callback)
 		callback(from, to, msgText);
 	});
 
-	//handle new joins
-	this.client.on("join", function(channel, name)
-	{
-		this.lookup(name, function(account)
-		{
-			if (account !== undefined && this.users[account] === undefined)
-				this.users[account] = 0;
-		}.bind(this));
-	}.bind(this));
-
-	//build list of currently online people
-	this.client.on("names", function(channel, names)
-	{
-		var i;
-		for (i in names)
-		{
-			this.lookup(i, function(account)
-			{
-				if (account !== undefined && this.users[account] === undefined)
-					this.users[account] = 0;
-			}.bind(this));
-		}
-	}.bind(this));
-
-	this.client.on("quit", function(nick)
-	{
-		var i = this.afkUsers.indexOf(nick);
-
-		if (i !== -1)
-			this.afkUsers.splice(i, 1);
-	}.bind(this));
-
 	this.client.on("error", function(){});
 }
 
@@ -68,10 +36,20 @@ module.exports.prototype =
 		this.client.say(this.conf.channel, txt);
 	},
 
-	"writeUsers": function()
+	"randomMessage": function(messageFile, args)
 	{
-		fs.writeFile(this.conf.usersFile,
-		             JSON.stringify(this.users));
+		var messages = fs.readFileSync(this.conf.messagesDir+messageFile, "utf8")
+						 .split("\n")
+						 .filter(function(n) { return n != "" } );
+		var message = messages[Math.floor(Math.random()*messages.length)];
+
+		var i;
+		for (i in args)
+		{
+			message = message.split("{"+i+"}").join(args[i]);
+		}
+
+		this.say(message);
 	},
 
 	"lookup": function(nick, callback)
@@ -86,50 +64,4 @@ module.exports.prototype =
 	{
 		return this.client.chans[this.conf.channel].users;
 	},
-
-	"addAfk": function(nick)
-	{
-		if (this.afkUsers.indexOf(nick) === -1)
-			this.afkUsers.push(nick);
-	},
-
-	"removeAfk": function(nick)
-	{
-		var i = this.afkUsers.indexOf(nick);
-		if (i !== -1)
-			this.afkUsers.splice(i, 1);
-	},
-
-	"isAfk": function(nick)
-	{
-		if (this.afkUsers.indexOf(nick) === -1)
-			return false;
-		else
-			return true;
-	},
-
-	"containsAfkUser": function(str)
-	{
-		var i;
-		for (i in this.afkUsers)
-		{
-			if (str.match(this.afkUsers[i]))
-				return true;
-		}
-		return false;
-	},
-
-	"getAfkUsers": function(str)
-	{
-		var u = [];
-
-		var i;
-		for (i in this.afkUsers)
-		{
-			if (str.match(this.afkUsers[i]))
-				u.push(this.afkUsers[i]);
-		}
-
-		return u;
-	}
 }
