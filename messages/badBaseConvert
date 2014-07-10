@@ -1,1 +1,1 @@
-Sorry {nick}, but I can't convert {number} to base {base}.
+Sorry {nick}, but I can't convert {number} in base {fromBase} to base {toBase}.

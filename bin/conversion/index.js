@@ -11,9 +11,12 @@ module.exports =
 	{
 		"parse": function(str)
 		{
-			var baseNext = false;
+			var nextBase = "";
+			var next = "";
+
 			var tokens = str.split(/\s+/);
-			var base = 10;
+			var fromBase = 10;
+			var toBase = 10;
 			var num = 0;
 
 			var i;
@@ -21,26 +24,47 @@ module.exports =
 			{
 				var token = tokens[i];
 
-				if (baseNext && token.match(/^\d+$/))
-					base = +token;
-				else if (token.match(/^\d+$/))
-					num = +token;
+				if (token.match(/^\d+$/))
+				{
+					if (nextBase == "from")
+						fromBase = +token;
+					else if (nextBase == "to")
+						toBase = +token;
+					else
+						num = +token;
+				}
+				else if (token.match(/^from$/i))
+				{
+					next = "from";
+				}
+				else if (token.match(/^to$/i))
+				{
+					next = "to";
+				}
 				else if (token.match(/^base$/i))
-					baseNext = true;
+				{
+					if (next == "from")
+						nextBase = "from";
+					else if (next == "to")
+						nextBase = "to";
+				}
 			}
 
 			var ret =
 			{
-				"base": base,
+				"fromBase": fromBase,
+				"toBase": toBase,
 				"number": num
 			}
 
 			return ret;
 		},
 
-		"toBase": function(base, num)
+		"toBase": function(fromBase, toBase, num)
 		{
-			if (base > 36 || base < 2)
+			num = parseInt(num, fromBase);
+
+			if (toBase > 36 || toBase < 2)
 				throw new Error("Base out of bounds");
 
 			var i;
@@ -48,8 +72,8 @@ module.exports =
 
 			do
 			{
-				reverseCharCodes.push(num % base);
-				num = Math.floor(num/base);
+				reverseCharCodes.push(num % toBase);
+				num = Math.floor(num/toBase);
 			}
 			while (num > 0);
 

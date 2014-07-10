@@ -63,13 +63,13 @@ var irc = new Irc(conf, function(sender, to, msg)
 	}
 
 	//convert [num] to base [base]
-	else if (msg.match(/[^\d]+to\s+base[^\d]+\d+/i))
+	else if (msg.match(/.+to\s+base.+\d+/i))
 	{
 		var parsed = conversion.base.parse(msg);
 
 		try
 		{
-			var result = conversion.base.toBase(parsed.base, parsed.number);
+			var result = conversion.base.toBase(parsed.fromBase, parsed.toBase, parsed.number);
 		}
 		catch (e)
 		{
@@ -77,7 +77,8 @@ var irc = new Irc(conf, function(sender, to, msg)
 			{
 				"nick": sender,
 				"number": parsed.number,
-				"base": parsed.base
+				"fromBase": parsed.fromBase,
+				"toBase": parsed.toBase
 			}));
 		}
 

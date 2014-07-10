@@ -24,7 +24,7 @@ In addittion to ladpoints, it has some useful utilities:
 
 * **calc [math expression]**:  
   Calculate a math expression. Uses [mathjs](http://mathjs.org).
-* **[number] to base [base]**:
+* **[number] to base [base]** or **[number] from [base] to [base]:
   Convert a number to another base. It supports all bases between 2 and 36.
 * **afk**:  
   Flags you as afk. If someone mentions your name while you're gone, the bot will notify them that you're away. Once you say something, you'll no longer be flagged as afk.
@@ -76,8 +76,8 @@ If you want to contribute to this project, but don't know a lot about programmin
 
 * **[messages/timerEnd](https://github.com/mortie/LadBot/blob/master/messages/timerEnd)**:  
   Messages displayed when {nick}'s timer ends.
-* **[messages/badBaseConvert](https://github.com/mortie/blob/master/messages/badBaseConvert**:
-  Messages displayed when {nick} tries to convert errorously from {number} to {base}.
+* **[messages/badBaseConvert](https://github.com/mortie/blob/master/messages/badBaseConvert)**:
+  Messages displayed when {nick} tries to convert errorously from {number} in base {fromBase} to {toBase}.
 
  Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
  
