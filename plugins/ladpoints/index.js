@@ -5,37 +5,40 @@ var conf;
 
 module.exports =
 {
-	"prefix": function(msg, sender, irc)
+	"methods":
 	{
-		var command = msg.replace(/ladpoints(.+)?/i, "");
-		var rest = msg.replace(/.+ladpoints\s+/i, "");
-		var tokens = rest.split(/\s/i);
-		var nick = tokens[0];
-
-		irc.lookup(nick, function(account)
+		"prefix": function(msg, sender, irc)
 		{
-			ladCommands(command, nick, account, sender, null, irc);
-		});
+			var command = msg.replace(/ladpoints(.+)?/i, "");
+			var rest = msg.replace(/.+ladpoints\s+/i, "");
+			var tokens = rest.split(/\s/i);
+			var nick = tokens[0];
+
+			irc.lookup(nick, function(account)
+			{
+				ladCommands(command, nick, account, sender, null, irc);
+			});
+		},
+
+		"infix": function(msg, sender, irc)
+		{
+			var command = msg.replace(/ladpoints\s+/i, "")
+							 .replace(/\s+\d+\s+[^\s]+/i, "")
+							 .trim();
+			var amount = +msg.replace(/ladpoints\s+(\-|\+)\=\s+/i, "")
+							.replace(/\s+[^\s]+/i, "")
+							.trim();
+			var nick = msg.replace(/ladpoints\s+(\+|\-)\=\s+\d+\s+/i, "")
+						  .trim();
+
+			irc.lookup(nick, function(account)
+			{
+				ladCommands(command, nick, account, sender, amount, irc);
+			});
+		}
 	},
 
-	"infix": function(msg, sender, irc)
-	{
-		var command = msg.replace(/ladpoints\s+/i, "")
-		                 .replace(/\s+\d+\s+[^\s]+/i, "")
-		                 .trim();
-		var amount = +msg.replace(/ladpoints\s+(\-|\+)\=\s+/i, "")
-		                .replace(/\s+[^\s]+/i, "")
-		                .trim();
-		var nick = msg.replace(/ladpoints\s+(\+|\-)\=\s+\d+\s+/i, "")
-		              .trim();
-
-		irc.lookup(nick, function(account)
-		{
-			ladCommands(command, nick, account, sender, amount, irc);
-		});
-	},
-
-	"init": function(irc, pConf)
+	"init": function(pConf, irc)
 	{
 		conf = pConf;
 		try {
@@ -47,7 +50,7 @@ module.exports =
 		}
 
 		//build list of currently online people
-		irc.client.on("names", function(channel, names)
+		irc.on("names", function(channel, names)
 		{
 			var i;
 			for (i in names)
@@ -61,7 +64,7 @@ module.exports =
 		});
 
 		//handle new joins
-		irc.client.on("join", function(channel, name)
+		irc.on("join", function(channel, name)
 		{
 			irc.lookup(name, function(account)
 			{
@@ -86,7 +89,7 @@ function ladCommands(command, nick, account, sender, amount, irc)
 			});
 			break;
 		case "++":
-			modifyPointCount("badLad", nick, account, sender, 1, irc);
+			modifyPointCount("goodLad", nick, account, sender, 1, irc);
 			break;
 		case "--":
 			modifyPointCount("badLad", nick, account, sender, -1, irc);

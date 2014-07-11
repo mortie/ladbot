@@ -1,0 +1,7 @@
+{
+	"methods":
+	{
+		"infix": "^ladpoints\\s+(\\-|\\+)=\\s+\\d+\\s+[^\\s]+",
+		"prefix": "^[^\\s]+ladpoints"
+	}
+}

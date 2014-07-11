@@ -1,0 +1,8 @@
+{
+	"methods":
+	{
+		"start": "^afk",
+		"end": "^(?!afk)",
+		"messageContainsUser": ".+"
+	}
+}

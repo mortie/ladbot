@@ -3,44 +3,37 @@ var fs = require("fs");
 
 module.exports = function(conf, callback)
 {
-	this.conf = conf;
-	this.afkUsers = [];
+	this._conf = conf;
 
-	try {
-		this.users = JSON.parse(fs.readFileSync(this.conf.usersFile));
-	}
-	catch (e)
-	{
-		this.users = {};
-	}
-	
 	//instantiate an IRC client
-	this.client = new irc.Client(this.conf.server, this.conf.nick, 
+	this._client = new irc.Client(this._conf.server, this._conf.nick, 
 	{
 		"channels": [conf.channel]
 	});
 
 	//do things on message
-	this.client.on("message", function(from, to, msgText)
+	this._client.on("message", function(from, to, msgText)
 	{
 		callback(from, to, msgText);
 	});
 
-	this.client.on("error", function(){});
+	this._client.on("error", function(){});
+
+	this.on = this._client.on;
 }
 
 module.exports.prototype =
 {
 	"say": function(txt)
 	{
-		this.client.say(this.conf.channel, txt);
+		this._client.say(this._conf.channel, txt);
 	},
 
 	"randomMessage": function(messageFile, args)
 	{
-		var messages = fs.readFileSync(this.conf.messagesDir+messageFile, "utf8")
-						 .split("\n")
-						 .filter(function(n) { return n != "" } );
+		var messages = fs.readFileSync(this._conf.messagesDir+messageFile, "utf8")
+		                 .split("\n")
+		                 .filter(function(n) { return n != "" } );
 		var message = messages[Math.floor(Math.random()*messages.length)];
 
 		var i;
@@ -54,7 +47,7 @@ module.exports.prototype =
 
 	"lookup": function(nick, callback)
 	{
-		this.client.whois(nick, function(info)
+		this._client.whois(nick, function(info)
 		{
 			callback(info.account);
 		});
@@ -62,6 +55,6 @@ module.exports.prototype =
 
 	"getNames": function()
 	{
-		return this.client.chans[this.conf.channel].users;
+		return this._client.chans[this._conf.channel].users;
 	},
 }

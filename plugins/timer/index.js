@@ -1,22 +1,28 @@
-module.exports = function(msg, sender, irc)
+module.exports =
 {
-	var duration = parseString(msg);
-	var prettyDuration = prettifyDuration(duration);
-
-	irc.randomMessage("timerStart",
+	"methods":
 	{
-		"nick": sender,
-		"duration": prettyDuration
-	});
-
-	setTimeout(function()
-	{
-		irc.randomMessage("timerEnd",
+		"timer": function(msg, sender, irc)
 		{
-			"nick": sender,
-			"duration": prettyDuration
-		});
-	}.bind(sender, prettyDuration), duration);
+			var duration = parseString(msg);
+			var prettyDuration = prettifyDuration(duration);
+
+			irc.randomMessage("timerStart",
+			{
+				"nick": sender,
+				"duration": prettyDuration
+			});
+
+			setTimeout(function()
+			{
+				irc.randomMessage("timerEnd",
+				{
+					"nick": sender,
+					"duration": prettyDuration
+				});
+			}.bind(sender, prettyDuration), duration);
+		}
+	}
 }
 
 function parseString(str)

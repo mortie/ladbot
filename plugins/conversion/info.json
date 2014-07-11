@@ -1,0 +1,6 @@
+{
+	"methods":
+	{
+		"base": ".+to\\s+base.+\\d+"
+	}
+}

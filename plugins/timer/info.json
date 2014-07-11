@@ -1,0 +1,6 @@
+{
+	"methods":
+	{
+		"timer": "^(timer|set.+timer).+(second|minute|hour|day)"
+	}
+}

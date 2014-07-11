@@ -8,27 +8,30 @@ var charMap = ["0", "1", "2", "3", "4", "5",
 
 module.exports =
 {
-	"base": function(msg, sender, irc)
+	"methods":
 	{
-		var parsed = parseBase(msg);
+		"base": function(msg, sender, irc)
+		{
+			var parsed = parseBase(msg);
 
-		try
-		{
-			var result = toBase(parsed.fromBase, parsed.toBase, parsed.number);
-		}
-		catch (e)
-		{
-			console.log(e);
-			irc.randomMessage("badBaseConvert",
+			try
 			{
-				"nick": sender,
-				"number": parsed.number,
-				"fromBase": parsed.fromBase,
-				"toBase": parsed.toBase
-			});
-		}
+				var result = toBase(parsed.fromBase, parsed.toBase, parsed.number);
+			}
+			catch (e)
+			{
+				console.log(e);
+				irc.randomMessage("badBaseConvert",
+				{
+					"nick": sender,
+					"number": parsed.number,
+					"fromBase": parsed.fromBase,
+					"toBase": parsed.toBase
+				});
+			}
 
-		irc.say(result);
+			irc.say(result);
+		}
 	}
 }
 
