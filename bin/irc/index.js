@@ -31,7 +31,7 @@ module.exports.prototype =
 
 	"randomMessage": function(messageFile, args)
 	{
-		var messages = fs.readFileSync(this._conf.messagesDir+messageFile, "utf8")
+		var messages = fs.readFileSync(messageFile, "utf8")
 		                 .split("\n")
 		                 .filter(function(n) { return n != "" } );
 		var message = messages[Math.floor(Math.random()*messages.length)];

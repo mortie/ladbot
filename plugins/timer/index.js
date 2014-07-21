@@ -2,12 +2,12 @@ module.exports =
 {
 	"methods":
 	{
-		"timer": function(msg, sender, irc)
+		"timer": function(msg, sender, api)
 		{
 			var duration = parseString(msg);
 			var prettyDuration = prettifyDuration(duration);
 
-			irc.randomMessage("timerStart",
+			api.randomMessage("timerStart",
 			{
 				"nick": sender,
 				"duration": prettyDuration
@@ -15,7 +15,7 @@ module.exports =
 
 			setTimeout(function()
 			{
-				irc.randomMessage("timerEnd",
+				api.randomMessage("timerEnd",
 				{
 					"nick": sender,
 					"duration": prettyDuration

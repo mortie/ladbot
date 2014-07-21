@@ -11,9 +11,8 @@ var irc = new Irc(conf, function(sender, to, msg)
 {
 	plugins.forEach(function(plugin)
 	{
-		plugin.exec(msg, sender, irc);
+		plugin.exec(msg, sender);
 	});
 });
 
 pluginManager.loadPlugins(plugins, conf, irc);
-

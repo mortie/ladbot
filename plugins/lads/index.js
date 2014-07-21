@@ -4,24 +4,19 @@ module.exports =
 {
 	"methods":
 	{
-		"lads": function(msg, sender, irc)
+		"lads": function(msg, sender, api)
 		{
-			var names = irc.getNames();
+			var names = api.getNames();
 			var str = "";
 
 			var i;
 			for (i in names)
 			{
-				if (i !== conf.nick && i !== sender)
+				if (i !== api.conf.nick && i !== sender)
 					str += i+" ";
 			}
 
-			irc.say(str);
+			api.say(str);
 		}
-	},
-
-	"init": function(pConf, irc)
-	{
-		conf = pConf;
 	}
 }

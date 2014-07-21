@@ -36,49 +36,6 @@ In addittion to ladpoints, it has some useful utilities:
 
 ## Contribute:
 
-If you want to contribute to this project, but don't know a lot about programming, or don't feel like programming, you can add random messages.
+If you want to contribute to this project, but don't know a lot about programming, or don't feel like programming, you can add messages which the bot will say. Each plugin in the [plugin directory](https://github.com/mortie/LadBot/tree/master/plugins) has a "messages" folder, in which almost all the strings the bot will ever say are stored.
 
-* **[messages/goodLad](https://github.com/mortie/LadBot/blob/master/messages/goodLad)**:  
-  Messages displayed when someone increments {nick}'s ladpoint count.
-
-* **[messages/badLad](https://github.com/mortie/LadBot/blob/master/messages/badLad)**:  
-  Messages displayed when someone decrements {nick}'s ladpoint count.
-
-* **[messages/points](https://github.com/mortie/LadBot/blob/master/messages/points)**:  
-  Messages displayed when someone wants {nick}'s ladpoint count.
-
-* **[messages/unknownLad](https://github.com/mortie/LadBot/blob/master/messages/unknownLad)**:  
-  Messages displayed when someone tries to do somethnig with a lad which doesn't exist, or isn't registered.
-
-* **[messages/modifySelf](https://github.com/mortie/LadBot/blob/master/messages/modifySelf)**:  
-  Messages displayed when {nick} tries to modify their own ladpoint count.
-
-* **[messages/aboveGiveLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveGiveLimit)**:  
-  Messages displayed when {sender} tries to give too many ladpoints to {nick}.
-
-* **[messages/aboveTakeLimit](https://github.com/mortie/LadBot/blob/master/messages/aboveTakeLimit)**:
-  Messages displayed when {sender} tries to take too many ladpoints from {nick}.
-
-* **[messages/badMath](https://github.com/mortie/LadBot/blob/master/messages/badCalc)**:  
-  Messages displayed when given a bad {math} string for calc.
-
-* **[messages/afk](https://github.com/mortie/LadBot/blob/master/messages/afk)**:  
-  Messages displayed when {nick} goes afk.
-
-* **[messages/back](https://github.com/mortie/LadBot/blob/master/messages/back)**:  
-  Messages displayed when {nick} comes back from being afk.
-
-* **[messages/isAfk](https://github.com/mortie/LadBot/blob/master/messages/isAfk)**:  
-  Messages displayed when {sender} mentions {nick} while {nick} is afk.
-
-* **[messages/timerStart](https://github.com/mortie/LadBot/blob/master/messages/timerStart)**:  
-  Messages displayed when {nick} starts a timer.
-
-* **[messages/timerEnd](https://github.com/mortie/LadBot/blob/master/messages/timerEnd)**:  
-  Messages displayed when {nick}'s timer ends.
-* **[messages/badBaseConvert](https://github.com/mortie/blob/master/messages/badBaseConvert)**:
-  Messages displayed when {nick} tries to convert errorously from {number} in base {fromBase} to {toBase}.
-
- Each new line is its own message, and the messages are chosen at random. Feel free to pull request with creative messages!
- 
- If you know programming on the other hand, it's basically the same as with any other open source project: add features, clean up code, optimise, etc.
+If you know programming on the other hand, it's basically the same as ith any other open source project: add features, clean up code, optimise, etc.

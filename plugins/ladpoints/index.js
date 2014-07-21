@@ -1,48 +1,44 @@
-var fs = require("fs");
-
 var users;
-var conf;
 
 module.exports =
 {
 	"methods":
 	{
-		"prefix": function(msg, sender, irc)
+		"prefix": function(msg, sender, api)
 		{
 			var command = msg.replace(/ladpoints(.+)?/i, "");
 			var rest = msg.replace(/.+ladpoints\s+/i, "");
 			var tokens = rest.split(/\s/i);
 			var nick = tokens[0];
 
-			irc.lookup(nick, function(account)
+			api.lookup(nick, function(account)
 			{
-				ladCommands(command, nick, account, sender, null, irc);
+				ladCommands(command, nick, account, sender, null, api);
 			});
 		},
 
-		"infix": function(msg, sender, irc)
+		"infix": function(msg, sender, api)
 		{
 			var command = msg.replace(/ladpoints\s+/i, "")
-							 .replace(/\s+\d+\s+[^\s]+/i, "")
+			                 .replace(/\s+\d+\s+[^\s]+/i, "")
 							 .trim();
 			var amount = +msg.replace(/ladpoints\s+(\-|\+)\=\s+/i, "")
-							.replace(/\s+[^\s]+/i, "")
-							.trim();
+			                 .replace(/\s+[^\s]+/i, "")
+			                 .trim();
 			var nick = msg.replace(/ladpoints\s+(\+|\-)\=\s+\d+\s+/i, "")
-						  .trim();
+			              .trim();
 
-			irc.lookup(nick, function(account)
+			api.lookup(nick, function(account)
 			{
-				ladCommands(command, nick, account, sender, amount, irc);
+				ladCommands(command, nick, account, sender, amount, api);
 			});
 		}
 	},
 
-	"init": function(pConf, irc)
+	"init": function(api)
 	{
-		conf = pConf;
 		try {
-			users = JSON.parse(fs.readFileSync(conf.usersFile));
+			users = JSON.parse(api.readFileSync("users.json"));
 		}
 		catch (e)
 		{
@@ -50,12 +46,12 @@ module.exports =
 		}
 
 		//build list of currently online people
-		irc.on("names", function(channel, names)
+		api.on("names", function(channel, names)
 		{
 			var i;
 			for (i in names)
 			{
-				irc.lookup(i, function(account)
+				api.lookup(i, function(account)
 				{
 					if (account !== undefined && users[account] === undefined)
 						users[account] = 0;
@@ -64,9 +60,9 @@ module.exports =
 		});
 
 		//handle new joins
-		irc.on("join", function(channel, name)
+		api.on("join", function(channel, name)
 		{
-			irc.lookup(name, function(account)
+			api.lookup(name, function(account)
 			{
 				if (account !== undefined && users[account] === undefined)
 					users[account] = 0;
@@ -75,54 +71,54 @@ module.exports =
 	}
 }
 
-function ladCommands(command, nick, account, sender, amount, irc)
+function ladCommands(command, nick, account, sender, amount, api)
 {
 	if (account)
 	{
 		switch (command)
 		{
 		case "?":
-			irc.randomMessage("points",
+			api.randomMessage("points",
 			{
 				"nick": nick,
 				"points": users[account]
 			});
 			break;
 		case "++":
-			modifyPointCount("goodLad", nick, account, sender, 1, irc);
+			modifyPointCount("goodLad", nick, account, sender, 1, api);
 			break;
 		case "--":
-			modifyPointCount("badLad", nick, account, sender, -1, irc);
+			modifyPointCount("badLad", nick, account, sender, -1, api);
 			break;
 		case "+=":
-			modifyPointCount("goodLad", nick, account, sender, amount, irc);
+			modifyPointCount("goodLad", nick, account, sender, amount, api);
 			break;
 		case "-=":
-			modifyPointCount("badLad", nick, account, sender, -amount, irc);
+			modifyPointCount("badLad", nick, account, sender, -amount, api);
 			break;
 		}
 	}
 	else
 	{
-		irc.randomMessage("unknownLad",
+		api.randomMessage("unknownLad",
 		{
 			"nick": nick
 		});
 	}
 }
 
-function modifyPointCount(operation, nick, account, sender, amount, irc)
+function modifyPointCount(operation, nick, account, sender, amount, api)
 {
 	if (nick !== sender)
 	{
-		if (Math.abs(amount) > conf.amountLimit)
+		if (Math.abs(amount) > 10)
 		{
 			if (amount < 0)
 				var message = "aboveTakeLimit";
 			else
 				var message = "aboveGiveLimit";
 
-			irc.randomMessage(message,
+			api.randomMessage(message,
 			{
 				"nick": nick,
 				"sender": sender,
@@ -133,25 +129,25 @@ function modifyPointCount(operation, nick, account, sender, amount, irc)
 		{
 			users[account] += amount;
 
-			irc.randomMessage(operation,
+			api.randomMessage(operation,
 			{
 				"nick": nick,
 				"sender": sender
 			});
-			writeUsers();
+			writeUsers(api);
 		}
 	}
 	else
 	{
-		irc.randomMessage("modifySelf",
+		api.randomMessage("modifySelf",
 		{
 			"nick": nick
 		});
 	}
 }
 
-function writeUsers()
+function writeUsers(api)
 {
-	fs.writeFile(conf.usersFile,
+	api.writeFile("users.json",
 	             JSON.stringify(users));
 }

@@ -4,9 +4,9 @@ module.exports =
 {
 	"methods":
 	{
-		"start": function(msg, sender, irc)
+		"start": function(msg, sender, api)
 		{
-			irc.randomMessage("afk",
+			api.randomMessage("start",
 			{
 				"nick": sender
 			});
@@ -21,21 +21,21 @@ module.exports =
 			}
 		},
 
-		"end": function(msg, sender, irc)
+		"end": function(msg, sender, api)
 		{
 			var i = afkUsers.indexOf(sender);
 			if (i !== -1)
 			{
 				afkUsers[i] = undefined;
 
-				irc.randomMessage("back",
+				api.randomMessage("end",
 				{
 					"nick": sender
 				});
 			}
 		},
 
-		"messageContainsUser": function(msg, sender, irc)
+		"messageContainsUser": function(msg, sender, api)
 		{
 			var u = getAfkUsers(msg);
 
@@ -46,7 +46,7 @@ module.exports =
 				var i;
 				for (i in u)
 				{
-					irc.randomMessage("isAfk",
+					api.randomMessage("isAfk",
 					{
 						"nick": u[i],
 						"sender": sender
@@ -56,9 +56,9 @@ module.exports =
 		}
 	},
 
-	"init": function(conf, irc)
+	"init": function(api)
 	{
-		irc.on("quit", function(nick)
+		api.on("quit", function(nick)
 		{
 			var i = afkUsers.indexOf(nick);
 

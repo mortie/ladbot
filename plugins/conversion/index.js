@@ -10,7 +10,7 @@ module.exports =
 {
 	"methods":
 	{
-		"base": function(msg, sender, irc)
+		"base": function(msg, sender, api)
 		{
 			var parsed = parseBase(msg);
 
@@ -20,8 +20,7 @@ module.exports =
 			}
 			catch (e)
 			{
-				console.log(e);
-				irc.randomMessage("badBaseConvert",
+				api.randomMessage("badBaseConvert",
 				{
 					"nick": sender,
 					"number": parsed.number,
@@ -30,7 +29,7 @@ module.exports =
 				});
 			}
 
-			irc.say(result);
+			api.say(result);
 		}
 	}
 }
