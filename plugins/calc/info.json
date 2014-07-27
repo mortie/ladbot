@@ -1,6 +1,6 @@
 {
 	"methods":
 	{
-		"calc": "^calc.+"
+		"calc": "^calc\\ .+"
 	}
 }
