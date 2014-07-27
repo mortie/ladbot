@@ -1,10 +1,8 @@
 {
 	"server": "irc.freenode.net",
-	"channel": "#",
+	"channel": "#someChannel",
 	"nick": "LadBot",
 
-	"amountLimit": 10,
-
-	"usersFile": "users.json",
+	"pluginsDir": "plugins/",
 	"messagesDir": "messages/"
 }
