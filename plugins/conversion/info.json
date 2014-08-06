@@ -1,6 +1,7 @@
 {
 	"methods":
 	{
-		"base": ".+to\\s+base.+\\d+"
+		"base": ".+to\\s+base.+\\d+",
+		"currency": "[0-9]+(\\.[0-9]+)?\\s+[A-Z]{1,4}\\s+to\\s+[A-Z]{1,4}"
 	}
 }

@@ -1,9 +1,11 @@
+var http = require("http");
+
 var charMap = ["0", "1", "2", "3", "4", "5",
                "6", "7", "8", "9", "A", "B",
                "C", "D", "E", "F", "G", "H",
                "I", "J", "K", "L", "M", "N",
                "O", "P", "Q", "R", "S", "T",
-               "U", "V", "W", "X", "Y", "Z"]
+               "U", "V", "W", "X", "Y", "Z"];
 
 
 module.exports =
@@ -30,6 +32,56 @@ module.exports =
 			}
 
 			api.say(result);
+		},
+
+		"currency": function(msg, sender, api)
+		{
+			var tokens = msg.split(/\s+/);
+
+			var fromCurrencyNext = true;
+
+			var fromCurrency;
+			var toCurrency;
+			var amount = 1;
+			tokens.forEach(function(token)
+			{
+				if (token.match(/[A-Z]{1,4}/))
+					if (fromCurrencyNext)
+						fromCurrency = token;
+					else
+						toCurrency = token;
+				else if (token.match("to"))
+					fromCurrencyNext = false;
+				else if (token.match(/[0-9]+(\.[0-9]+)?/))
+					amount = parseFloat(token);
+			});
+
+			http.request(
+			{
+				"host": "www.freecurrencyconverterapi.com",
+				"path": "/api/convert?q="+fromCurrency+"-"+toCurrency+"&compact=y"
+			},
+			function(response)
+			{
+				var str = "";
+				response.on("data", function(data)
+				{
+					if (data)
+						str += data;
+				});
+
+				response.on("end", function()
+				{
+					var result = amount*JSON.parse(str)[fromCurrency+"-"+toCurrency].val;
+					api.randomMessage("currencyConvert",
+					{
+						"from": fromCurrency,
+						"to": toCurrency,
+						"input": amount,
+						"result": parseFloat(result).toFixed(2)
+					});
+				});
+			}).end();
 		}
 	}
 }

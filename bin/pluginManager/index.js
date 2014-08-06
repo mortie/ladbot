@@ -46,10 +46,13 @@ module.exports =
 		var entries = fs.readdirSync(conf.pluginsDir);
 		entries.forEach(function(entry)
 		{
-			var plugin = new Plugin(conf.pluginsDir+entry+"/", new Api(conf, irc, entry));
-			plugin.init();
+			if (conf.disabledPlugins.indexOf(entry) === -1)
+			{
+				var plugin = new Plugin(conf.pluginsDir+entry+"/", new Api(conf, irc, entry));
+				plugin.init();
 
-			ref.push(plugin);
+				ref.push(plugin);
+			}
 		});
 	}
 }
