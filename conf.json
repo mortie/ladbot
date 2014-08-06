@@ -1,7 +1,11 @@
 {
 	"server": "irc.freenode.net",
-	"channel": "#someChannel",
-	"nick": "LadBot",
+	"channel": "#bots",
+	"nick": "Bot",
+
+	"disabledPlugins":
+	[
+	],
 
 	"pluginsDir": "plugins/",
 	"messagesDir": "messages/"
