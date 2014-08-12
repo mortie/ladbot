@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 var fs = require("fs");
+var domain = require("domain");
 var Irc = require("./bin/irc");
 var conf = JSON.parse(fs.readFileSync("conf.json"));
 var pluginManager = require("./bin/pluginManager");
@@ -34,4 +35,11 @@ process.stdin.on("data", function(line)
 		console.log("reload complete");
 		break;
 	}
+});
+
+//don't crash on unhandled exception
+var d = domain.create();
+d.on("error", function(err)
+{
+	console.log(err);
 });
