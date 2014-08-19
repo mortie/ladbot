@@ -73,13 +73,16 @@ module.exports =
 				response.on("end", function()
 				{
 					var result = amount*JSON.parse(str)[fromCurrency+"-"+toCurrency].val;
-					api.randomMessage("currencyConvert",
+					if (true)
 					{
-						"from": fromCurrency,
-						"to": toCurrency,
-						"input": amount,
-						"result": parseFloat(result).toFixed(2)
-					});
+						api.randomMessage("currencyConvert",
+						{
+							"from": fromCurrency,
+							"to": toCurrency,
+							"input": amount,
+							"result": parseFloat(result).toFixed(2)
+						});
+					}
 				});
 			}).end();
 		}

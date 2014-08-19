@@ -43,3 +43,9 @@ d.on("error", function(err)
 {
 	console.log(err);
 });
+
+//again, don't crash!
+process.on("uncaughtException", function(err)
+{
+	console.log(err);
+});
