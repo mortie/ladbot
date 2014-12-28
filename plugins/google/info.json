@@ -1,6 +1,0 @@
-{
-	"methods":
-	{
-		"google": "google\\s+\".+\""
-	}
-}
