@@ -1,0 +1,6 @@
+{
+	"methods":
+	{
+		"prefix": "^[^\\s]+ladpoints"
+	}
+}
