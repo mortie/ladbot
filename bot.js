@@ -32,8 +32,10 @@ process.stdin.on("data", function(line)
 		plugins = [];
 		pluginManager.loadPlugins(plugins, conf, irc);
 
-		console.log("reload complete");
+		console.log("Reload complete.");
 		break;
+	default:
+		console.log("Unknown command: "+command+".");
 	}
 });
 

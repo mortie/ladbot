@@ -12,7 +12,10 @@ var Plugin = function(dirName, api)
 		this.info.methods[i] = new RegExp(this.info.methods[i], "i");
 	}
 
-	this.script = require("../../"+dirName);
+	var fileName = "../../"+dirName;
+
+	delete require.cache[require.resolve(fileName)];
+	this.script = require(fileName);
 }
 
 Plugin.prototype =
