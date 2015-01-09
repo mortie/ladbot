@@ -4,12 +4,32 @@ var fs = require("fs");
 module.exports = function(conf, callback)
 {
 	this._conf = conf;
+	var registered = false;
+
+	console.log("Connecting to "+conf.channel+"@"+conf.server+" ...");
 
 	//instantiate an IRC client
-	this._client = new irc.Client(this._conf.server, this._conf.nick, 
+	this._client = new irc.Client(conf.server, conf.nick,
 	{
 		"channels": [conf.channel]
 	});
+
+	//say when connected
+	this._client.on("registered", function(message)
+	{
+		console.log("Connected!");
+		registered = true;
+	});
+
+	//time out connection
+	setTimeout(function()
+	{
+		if (!registered)
+		{
+			console.log("Connection timed out.");
+			process.exit();
+		}
+	}, conf.timeOut);
 
 	//do things on message
 	this._client.on("message", function(from, to, msgText)

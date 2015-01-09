@@ -7,6 +7,6 @@
 	[
 	],
 
-	"pluginsDir": "plugins/",
-	"messagesDir": "messages/"
+	"timeOut": 10000,
+	"pluginsDir": "plugins/"
 }

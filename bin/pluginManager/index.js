@@ -60,7 +60,7 @@ module.exports =
 				}
 				catch (e)
 				{
-					if (e.code !== "ENOTDIR")
+					if (!(e.code === "ENOTDIR" || e.code === "ENOENT"))
 						throw e;
 				}
 			}
