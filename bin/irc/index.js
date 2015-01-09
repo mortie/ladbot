@@ -11,7 +11,9 @@ module.exports = function(conf, callback)
 	//instantiate an IRC client
 	this._client = new irc.Client(conf.server, conf.nick,
 	{
-		"channels": [conf.channel]
+		"channels": [conf.channel],
+		"userName": conf.userName,
+		"realName": conf.realName
 	});
 
 	//say when connected
@@ -37,7 +39,10 @@ module.exports = function(conf, callback)
 		callback(from, to, msgText);
 	});
 
-	this._client.on("error", function(){});
+	this._client.on("error", function(err)
+	{
+		console.log("Error: "+err.args[2]+" ("+err.command+")");
+	});
 
 	this.on = this._client.on;
 }

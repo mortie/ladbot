@@ -7,6 +7,9 @@
 	[
 	],
 
+	"userName": "ladbot",
+	"realName": "LadBot IRC Bot",
+
 	"timeOut": 10000,
 	"pluginsDir": "plugins/"
 }
