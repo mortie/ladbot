@@ -12,7 +12,14 @@ var irc = new Irc(conf, function(sender, to, msg)
 {
 	plugins.forEach(function(plugin)
 	{
-		plugin.exec(msg, sender);
+		try
+		{
+			plugin.exec(msg, sender);
+		}
+		catch (err)
+		{
+			console.log("Error from plugin '"+plugin.name+"': "+err);
+		}
 	});
 });
 

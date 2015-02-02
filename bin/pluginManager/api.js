@@ -12,6 +12,7 @@ module.exports.prototype =
 {
 	"say": function(text)
 	{
+		console.log("Plugin "+name+": "+text);
 		this.irc.say(text);
 	},
 

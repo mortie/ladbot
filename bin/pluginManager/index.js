@@ -1,11 +1,21 @@
 var fs = require("fs");
 var Api = require("./api.js");
+var parseconf = require("../parseconf");
 
-var Plugin = function(dirName, api)
+var Plugin = function(pluginsDir, name, api)
 {
-	this.api = api;
+	var dirName = pluginsDir+"/"+name;
 
-	this.info = JSON.parse(fs.readFileSync(dirName+"info.json"));
+	this.api = api;
+	this.name = name;
+
+	this.info = 
+	{
+		"methods": parseconf(fs.readFileSync(dirName+"methods.cnf").toString())
+	};
+
+	console.log(this.info);
+
 	var i;
 	for (i in this.info.methods)
 	{
@@ -53,7 +63,7 @@ module.exports =
 			{
 				try
 				{
-					var plugin = new Plugin(conf.pluginsDir+entry+"/", new Api(conf, irc, entry));
+					var plugin = new Plugin(conf.pluginsDir, entry, new Api(conf, irc, entry));
 					plugin.init();
 
 					ref.push(plugin);
