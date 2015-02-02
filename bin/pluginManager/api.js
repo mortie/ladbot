@@ -1,4 +1,6 @@
 var fs = require("fs");
+var http = require("http");
+var request = require("request");
 
 module.exports = function(conf, irc, name)
 {
@@ -49,5 +51,7 @@ module.exports.prototype =
 	"readFileSync": function(file)
 	{
 		return fs.readFileSync(this.conf.pluginsDir+this.name+"/"+file);
-	}
+	},
+
+	"request": request
 }
