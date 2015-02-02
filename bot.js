@@ -19,6 +19,7 @@ var irc = new Irc(conf, function(sender, to, msg)
 		catch (err)
 		{
 			console.log("Error from plugin '"+plugin.name+"': "+err);
+			console.trace(err);
 		}
 	});
 });

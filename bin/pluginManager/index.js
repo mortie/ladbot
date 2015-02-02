@@ -4,7 +4,9 @@ var parseconf = require("../parseconf");
 
 var Plugin = function(pluginsDir, name, api)
 {
-	var dirName = pluginsDir+"/"+name;
+	console.log("Loading plugin '"+name+"'...");
+
+	var dirName = pluginsDir+"/"+name+"/";
 
 	this.api = api;
 	this.name = name;
@@ -13,8 +15,6 @@ var Plugin = function(pluginsDir, name, api)
 	{
 		"methods": parseconf(fs.readFileSync(dirName+"methods.cnf").toString())
 	};
-
-	console.log(this.info);
 
 	var i;
 	for (i in this.info.methods)
