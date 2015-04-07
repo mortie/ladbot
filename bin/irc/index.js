@@ -4,6 +4,7 @@ var fs = require("fs");
 module.exports = function(conf, callback)
 {
 	this._conf = conf;
+	this.dest = this._conf.channel;
 	var registered = false;
 
 	console.log("Connecting to "+conf.channel+"@"+conf.server+" ...");
@@ -49,9 +50,14 @@ module.exports = function(conf, callback)
 
 module.exports.prototype =
 {
+	"setLocation": function(dest)
+	{
+		this.dest = dest;
+	},
+	
 	"say": function(txt)
 	{
-		this._client.say(this._conf.channel, txt);
+		this._client.say(this.dest, txt);
 	},
 
 	"randomMessage": function(messageFile, args)
