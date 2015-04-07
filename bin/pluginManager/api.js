@@ -14,13 +14,13 @@ module.exports.prototype =
 {
 	"setLocation": function(dest)
 	{
-		this.dest = dest;
+		this.irc.setLocation(dest);
 	},
 
 	"say": function(text)
 	{
 		console.log("Plugin "+this.name+": "+text);
-		this.irc._client.say(this.dest, text);
+		this.irc.say(text);
 	},
 
 	"randomMessage": function(messageFile, args)
