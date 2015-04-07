@@ -30,7 +30,7 @@ var Plugin = function(pluginsDir, name, api)
 
 Plugin.prototype =
 {
-	"exec": function(msg, sender, api)
+	"exec": function(msg, sender, to, api)
 	{
 		var i;
 		for (i in this.info.methods)
@@ -39,7 +39,13 @@ Plugin.prototype =
 			var regex = this.info.methods[i];
 
 			if (msg.match(regex))
+			{
+				if (("&#+!").indexOf(to.substr(0,1)) != -1)
+					this.api.setLocation(to);
+				else
+					this.api.setLocation(sender);
 				method(msg, sender, this.api);
+			}
 		}
 	},
 
