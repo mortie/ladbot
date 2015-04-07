@@ -12,10 +12,15 @@ module.exports = function(conf, irc, name)
 
 module.exports.prototype =
 {
+	"setLocation": function(dest)
+	{
+		this.dest = dest;
+	},
+
 	"say": function(text)
 	{
 		console.log("Plugin "+this.name+": "+text);
-		this.irc.say(text);
+		this.irc._client.say(this.dest, text);
 	},
 
 	"randomMessage": function(messageFile, args)

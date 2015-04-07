@@ -14,7 +14,7 @@ var irc = new Irc(conf, function(sender, to, msg)
 	{
 		try
 		{
-			plugin.exec(msg, sender);
+			plugin.exec(msg, sender, to);
 		}
 		catch (err)
 		{
