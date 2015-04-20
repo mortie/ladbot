@@ -7,15 +7,10 @@ module.exports = function(conf, callback)
 	this.dest = this._conf.channel;
 	var registered = false;
 
-	console.log("Connecting to "+conf.channel+"@"+conf.server+" ...");
+	console.log("Connecting to "+conf.options.channels.join()+"@"+conf.server+" ...");
 
 	//instantiate an IRC client
-	this._client = new irc.Client(conf.server, conf.nick,
-	{
-		"channels": [conf.channel],
-		"userName": conf.userName,
-		"realName": conf.realName
-	});
+	this._client = new irc.Client(conf.server, conf.nick, conf.options);
 
 	//say when connected
 	this._client.on("registered", function(message)
@@ -54,7 +49,7 @@ module.exports.prototype =
 	{
 		this.dest = dest;
 	},
-	
+
 	"say": function(txt)
 	{
 		this._client.say(this.dest, txt);
@@ -84,8 +79,8 @@ module.exports.prototype =
 		});
 	},
 
-	"getNames": function()
+	"getNames": function(chan)
 	{
-		return this._client.chans[this._conf.channel].users;
+		return this._client.chans[chan.toLowerCase()].users;
 	},
 }

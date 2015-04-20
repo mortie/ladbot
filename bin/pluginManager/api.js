@@ -33,9 +33,9 @@ module.exports.prototype =
 		this.irc.lookup(nick, callback);
 	},
 
-	"getNames": function()
+	"getNames": function(chan)
 	{
-		return this.irc.getNames();
+		return this.irc.getNames(chan);
 	},
 
 	"writeFile": function(file, data, callback)

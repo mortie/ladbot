@@ -11,7 +11,7 @@ var Plugin = function(pluginsDir, name, api)
 	this.api = api;
 	this.name = name;
 
-	this.info = 
+	this.info =
 	{
 		"methods": parseconf(fs.readFileSync(dirName+"methods.cnf").toString())
 	};
@@ -40,11 +40,13 @@ Plugin.prototype =
 
 			if (msg.match(regex))
 			{
-				if (("&#+!").indexOf(to.substr(0,1)) != -1)
+				if (("&#").indexOf(to.substr(0,1)) != -1) {
 					this.api.setLocation(to);
-				else
+					method(msg, sender, this.api, to);
+				} else {
 					this.api.setLocation(sender);
-				method(msg, sender, this.api);
+					method(msg, sender, this.api, 0);
+				}
 			}
 		}
 	},

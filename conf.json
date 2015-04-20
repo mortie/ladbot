@@ -1,15 +1,27 @@
 {
 	"server": "irc.freenode.net",
-	"channel": "#bots",
-	"nick": "Bot",
+	"nick": "Botticus",
+
+	"options":
+	{
+		"userName": "user",
+		"password": "pass",
+
+		"realName": "Bot",
+		"port": 6697,
+		"channels": ["#iRedMail"],
+		"secure": true,
+		"autoRejoin": true,
+		"showErrors": true,
+		"sasl": false
+	},
 
 	"disabledPlugins":
 	[
+		"LICENSE",
+		"README.md"
 	],
 
-	"userName": "ladbot",
-	"realName": "LadBot IRC Bot",
-
-	"timeOut": 10000,
+	"timeOut": 20000,
 	"pluginsDir": "plugins/"
 }
