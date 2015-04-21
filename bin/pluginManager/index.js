@@ -45,7 +45,7 @@ Plugin.prototype =
 					method(msg, sender, this.api, to);
 				} else {
 					this.api.setLocation(sender);
-					method(msg, sender, this.api, 0);
+					method(msg, sender, this.api);
 				}
 			}
 		}
