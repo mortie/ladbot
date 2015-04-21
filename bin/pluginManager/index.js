@@ -2,16 +2,16 @@ var fs = require("fs");
 var Api = require("./api.js");
 var parseconf = require("../parseconf");
 
-var Plugin = function(pluginsDir, name, api)
+var Plugin = function(conf, name, irc)
 {
 	console.log("Loading plugin '"+name+"'...");
+	var dirName = conf.pluginsDir+"/"+name+"/";
 
-	var dirName = pluginsDir+"/"+name+"/";
-
-	this.api = api;
+	this.irc = irc;
 	this.name = name;
+	this.conf = conf;
 
-	this.info = 
+	this.info =
 	{
 		"methods": parseconf(fs.readFileSync(dirName+"methods.cnf").toString())
 	};
@@ -30,7 +30,7 @@ var Plugin = function(pluginsDir, name, api)
 
 Plugin.prototype =
 {
-	"exec": function(msg, sender, to, api)
+	"exec": function(msg, sender, to)
 	{
 		var i;
 		for (i in this.info.methods)
@@ -40,20 +40,20 @@ Plugin.prototype =
 
 			if (msg.match(regex))
 			{
-				if (("&#+!").indexOf(to.substr(0,1)) != -1)
-					this.api.setLocation(to);
+				if (("&#").indexOf(to.substr(0,1)) != -1)
+					var dest = to;
 				else
-					this.api.setLocation(sender);
-				method(msg, sender, this.api);
+					var dest = sender;
+				method(msg, sender, new Api(this.conf, this.irc, this.name, dest));
 			}
 		}
 	},
 
-	"init": function()
+	"init": function(conf, irc, entry)
 	{
 		if (this.script.init !== undefined)
 		{
-			this.script.init(this.api);
+			this.script.init(new Api(conf, irc, entry));
 		}
 	}
 }
@@ -62,20 +62,24 @@ module.exports =
 {
 	"loadPlugins": function(ref, conf, irc)
 	{
-		var entries = fs.readdirSync(conf.pluginsDir);
+		var entries = fs.readdirSync(conf.pluginsDir).filter(function(file)
+		{
+    		return fs.statSync(path.join(conf.pluginsDir, file)).isDirectory();
+  		});
 		entries.forEach(function(entry)
 		{
 			if (entry[0] !== "." && conf.disabledPlugins.indexOf(entry) === -1)
 			{
 				try
 				{
-					var plugin = new Plugin(conf.pluginsDir, entry, new Api(conf, irc, entry));
-					plugin.init();
+					var plugin = new Plugin(conf, entry, irc);
+					plugin.init(conf, irc, entry);
 
 					ref.push(plugin);
 				}
 				catch (e)
 				{
+					console.log(e);
 					if (!(e.code === "ENOTDIR" || e.code === "ENOENT"))
 						throw e;
 				}

@@ -1,15 +1,26 @@
 {
 	"server": "irc.freenode.net",
-	"channel": "#bots",
-	"nick": "Bot",
+	"nick": "LadBot",
+
+	"options":
+	{
+		"_userName": "username",
+		"_password": "password",
+
+		"realName": "NodeJS LadBot",
+		"port": 6697,
+		"channels": ["#bots", "#bots2"],
+		"secure": true,
+		"autoRejoin": true,
+		"showErrors": true,
+		"sasl": false
+	},
 
 	"disabledPlugins":
 	[
 	],
 
-	"userName": "ladbot",
-	"realName": "LadBot IRC Bot",
-
 	"timeOut": 10000,
 	"pluginsDir": "plugins/"
 }
+
