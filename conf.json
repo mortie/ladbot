@@ -1,15 +1,15 @@
 {
 	"server": "irc.freenode.net",
-	"nick": "Botticus",
+	"nick": "LadBot",
 
 	"options":
 	{
-		"userName": "user",
-		"password": "pass",
+		"_userName": "username",
+		"_password": "password",
 
-		"realName": "Bot",
+		"realName": "NodeJS LadBot",
 		"port": 6697,
-		"channels": ["#iRedMail"],
+		"channels": ["#iRedMail", "#bots"],
 		"secure": true,
 		"autoRejoin": true,
 		"showErrors": true,
@@ -18,10 +18,9 @@
 
 	"disabledPlugins":
 	[
-		"LICENSE",
-		"README.md"
 	],
 
 	"timeOut": 20000,
 	"pluginsDir": "plugins/"
 }
+

@@ -4,7 +4,6 @@ var fs = require("fs");
 module.exports = function(conf, callback)
 {
 	this._conf = conf;
-	this.dest = this._conf.channel;
 	var registered = false;
 
 	console.log("Connecting to "+conf.options.channels.join()+"@"+conf.server+" ...");
@@ -45,17 +44,13 @@ module.exports = function(conf, callback)
 
 module.exports.prototype =
 {
-	"setLocation": function(dest)
+
+	"say": function(txt, dest)
 	{
-		this.dest = dest;
+		this._client.say(dest, txt);
 	},
 
-	"say": function(txt)
-	{
-		this._client.say(this.dest, txt);
-	},
-
-	"randomMessage": function(messageFile, args)
+	"randomMessage": function(messageFile, args, dest)
 	{
 		var messages = fs.readFileSync(messageFile, "utf8")
 		                 .split("\n")
@@ -68,7 +63,7 @@ module.exports.prototype =
 			message = message.split("{"+i+"}").join(args[i]);
 		}
 
-		this.say(message);
+		this.say(message, dest);
 	},
 
 	"lookup": function(nick, callback)
@@ -81,6 +76,7 @@ module.exports.prototype =
 
 	"getNames": function(chan)
 	{
+		console.log("Listing for ", chan);
 		return this._client.chans[chan.toLowerCase()].users;
 	},
 }
