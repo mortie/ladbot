@@ -9,7 +9,7 @@
 
 		"realName": "NodeJS LadBot",
 		"port": 6697,
-		"channels": ["#iRedMail", "#bots"],
+		"channels": ["#bots", "#bots2"],
 		"secure": true,
 		"autoRejoin": true,
 		"showErrors": true,
@@ -20,7 +20,7 @@
 	[
 	],
 
-	"timeOut": 20000,
+	"timeOut": 10000,
 	"pluginsDir": "plugins/"
 }
 
