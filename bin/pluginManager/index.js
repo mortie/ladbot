@@ -64,7 +64,7 @@ module.exports =
 	{
 		var entries = fs.readdirSync(conf.pluginsDir).filter(function(file)
 		{
-    		return fs.statSync(path.join(conf.pluginsDir, file)).isDirectory();
+			return fs.statSync(conf.pluginsDir+'/'+file).isDirectory();
   		});
 		entries.forEach(function(entry)
 		{

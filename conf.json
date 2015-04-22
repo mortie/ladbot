@@ -9,18 +9,32 @@
 
 		"realName": "NodeJS LadBot",
 		"port": 6697,
-		"channels": ["#bots", "#bots2"],
+		"channels": ["#bots", "#WebDevGuru"],
 		"secure": true,
 		"autoRejoin": true,
 		"showErrors": true,
 		"sasl": false
 	},
 
+	"joinCommands":
+	[
+		["PRIVMSG", "t3chguy", "Bot has Connected!"]
+	],
+
 	"disabledPlugins":
 	[
 	],
 
-	"timeOut": 10000,
-	"pluginsDir": "plugins/"
+	"timeOut": 20000,
+	"pluginsDir": "plugins/",
+
+	"httpport": 8080,
+
+	"httpreq":
+	[
+		"92.23.165.172",
+		"92.23.165.171",
+		"::1"
+	]
 }
 

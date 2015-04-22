@@ -15,6 +15,13 @@ module.exports = function(conf, callback)
 	this._client.on("registered", function(message)
 	{
 		console.log("Connected!");
+
+		var i;
+		for (i in conf.joinCommands)
+		{
+			this.send.apply(this, conf.joinCommands[i]);
+		};
+
 		registered = true;
 	});
 
