@@ -11,6 +11,7 @@ LadBot is an IRC bot framework. It's written in node.js, and uses [Martyn Smith'
 + IRC SASL Authentication
 + Configurable Timeout
 + Plugin Disabling via Config
++ RAW IRC Commands on-join
 + Many other functionalities via Plugins
 
 
