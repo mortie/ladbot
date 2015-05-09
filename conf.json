@@ -27,13 +27,6 @@
 	],
 
 	"timeOut": 10000,
-	"pluginsDir": "plugins/",
-
-	"httpport": 8080,
-
-	"httpreq":
-	[
-		"::1"
-	]
+	"pluginsDir": "plugins/"
 }
 
