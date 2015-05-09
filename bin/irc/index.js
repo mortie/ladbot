@@ -45,8 +45,6 @@ module.exports = function(conf, callback)
 	{
 		console.log("Error: "+err.args[2]+" ("+err.command+")");
 	});
-
-	this.on = this._client.on;
 }
 
 module.exports.prototype =

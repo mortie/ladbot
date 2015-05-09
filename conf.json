@@ -1,5 +1,5 @@
 {
-	"server": "irc.freenode.net",
+	"server": "irc.esper.net",
 	"nick": "LadBot",
 
 	"options":
@@ -7,33 +7,32 @@
 		"_userName": "username",
 		"_password": "password",
 
-		"realName": "NodeJS LadBot",
+		"realName": "I ain't afraid of no Ghost",
 		"port": 6697,
-		"channels": ["#bots", "#WebDevGuru"],
+		"channels": ["#bots", "#botz"],
 		"secure": true,
 		"autoRejoin": true,
 		"showErrors": true,
 		"sasl": false
 	},
 
-	"joinCommands":
+	"_joinCommands":
 	[
-		["PRIVMSG", "t3chguy", "Bot has Connected!"]
+		["PRIVMSG", "NickServ", "IDENTIFY username password"]
 	],
 
 	"disabledPlugins":
 	[
+		"httpreq"
 	],
 
-	"timeOut": 20000,
+	"timeOut": 10000,
 	"pluginsDir": "plugins/",
 
 	"httpport": 8080,
 
 	"httpreq":
 	[
-		"92.23.165.172",
-		"92.23.165.171",
 		"::1"
 	]
 }
