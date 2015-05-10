@@ -8,7 +8,7 @@ module.exports = function(conf, irc, name, dest)
 	this.irc = irc;
 	this.name = name;
 	this.dest = dest;
-	this.on = irc.on;
+	this.on = irc._client.on;
 }
 
 module.exports.prototype =
