@@ -1,4 +1,0 @@
-[submodule "plugins"]
-	path = plugins
-	url = https://github.com/mortie/ladbot-plugins.git
-	branch = master
