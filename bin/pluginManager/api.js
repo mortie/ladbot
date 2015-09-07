@@ -16,6 +16,11 @@ module.exports.prototype =
 
 	"say": function(text)
 	{
+		text = text.toString();
+
+		if (text.length > 200)
+			text = text.substring(0, 200) + "...";
+
 		console.log("Plugin "+this.name+": "+text);
 		this.irc.say(text, this.dest);
 	},
