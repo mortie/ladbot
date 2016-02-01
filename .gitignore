@@ -1,3 +1,4 @@
 users.json
 conf.json
 *.log
+plugins/
