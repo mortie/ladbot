@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 var fs = require("fs");
 var domain = require("domain");
 var Irc = require("./bin/irc");
@@ -57,4 +56,8 @@ d.on("error", function(err)
 process.on("uncaughtException", function(err)
 {
 	console.log(err);
+});
+
+process.on("SIGUSR2", function() {
+	console.log("pong");
 });
